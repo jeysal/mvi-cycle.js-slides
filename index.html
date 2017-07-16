@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <style>
+img.plain {
+  border: 0;
+  background: none !important;
+}
+
+img.inline {
+  height: 1em;
+  margin: 0 !important;
+}
+
+iframe[src*="rxmarbles.com"] {
+  filter: invert(1);
+}
+
+iframe[src*="tricycle"] {
+  background-color: white;
+}
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-transition="fade-out">
+          <div>
+            <h2>
+              <span>Model-View-Intent</span>
+              <span>frontend development with</span>
+              <span>Cycle.js</span>
+            </h2>
+          </div>
+          <div>
+            <small>
+              Tim Seckinger
+            </small>
+            <br>
+            <small>
+              <img data-src="img/github-logo.png" alt="GitHub Logo" class="plain inline">
+              jeysal
+            </small>
+          </div>
+        </section>
+
+        <section data-transition="fade-in slide">
+          <div>
+            <h2>
+              <span>Model-View-Intent</span>
+              <span style="visibility: hidden">frontend development with</span>
+              <span>Cycle.js</span>
+            </h2>
+          </div>
+          <div style="visibility: hidden">
+            <small>
+              Tim Seckinger
+            </small>
+            <br>
+            <small>
+              <img data-src="img/github-logo.png" alt="GitHub Logo" class="plain inline">
+              jeysal
+            </small>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * There's MVC, MVP, MVVM, MVW (declared by AngularJS)
+            * How does this differ?
+            * There's React, Angular, Vue and many more frameworks
+            * Why another?
+          </aside>
+        </section>
+
+        <section>
+          <h3>Modern Frontend Technology</h3>
+          <img data-src="img/redux-logo.svg" alt="Redux Logo" class="plain" style="width: 30%; margin: 5%;">
+          <img data-src="img/rx-logo.png" alt="ReactiveX Logo" class="plain" style="width: 30%; margin: 5%;">
+          <h3>Functional & Reactive</h3>
+
+          <aside class="notes" data-markdown>
+            * Let's look at the current tendencies in frontend technology
+            * React: Redux as a functional state container
+            * Angular: RxJS as a F&RP core dependency
+            * Both only halfhearted
+            * Redux still has some imperative elements to it
+            * Try to build a pure F&RP UI with Angular - good luck
+            * Why don't we go all the way?
+          </aside>
+        </section>
+
+        <section>
+          <table style="font-size: .75em;">
+            <tr>
+              <th></th>
+              <th>1 value</th>
+              <th>0..1 values</th>
+              <th>0..* values</th>
+            </tr>
+            <tr>
+              <th>sync, pull</th>
+              <td>T</td>
+              <td>T? / Optional&lt;T&gt;</td>
+              <td>T[] / Array&lt;T&gt;</td>
+            </tr>
+            <tr>
+              <th>async, push</th>
+              <td>Callback&lt;T&gt;</td>
+              <td>Promise&lt;T&gt;</td>
+              <td class="fragment highlight-green">Observable&lt;T&gt;</td>
+            </tr>
+          </table>
+
+          <aside class="notes" data-markdown>
+            * First of all, what is F&RP?
+            * Overview of imperative data structures
+            * Explain what sync & pull means
+            * Explain what async & push means
+            * Promise in JS: error case
+            * Finally, Observable: stream of multiple values arriving over time
+          </aside>
+        </section>
+
+        <section data-background-transition="zoom">
+          <section data-background-iframe="http://rxmarbles.com/#map" data-background-interactive>
+            <aside class="notes" data-markdown>
+              * Simple operations known from sync data, such as `map`
+              * Explicit modeling of time, such as `debounce`
+              * More complex interaction of multiple streams, such as `combineLatest`
+            </aside>
+          </section>
+          <section>
+            <img data-src="img/rx-map.png" alt="Rx map operator">
+          </section>
+          <section>
+            <img data-src="img/rx-debounce.png" alt="Rx debounce operator">
+          </section>
+          <section>
+            <img data-src="img/rx-combinelatest.png" alt="Rx combinelatest operator">
+          </section>
+        </section>
+
+        <section>
+          <img data-src="img/mvi.png" class="plain">
+          <small>
+            <small>
+              <a href="https://speakerdeck.com/staltz/what-if-the-user-was-a-function">
+                https://speakerdeck.com/staltz/what-if-the-user-was-a-function
+              </a>
+            </small>
+          </small>
+
+          <aside class="notes" data-markdown>
+            * Model-View-Intent establishes a unidirectional data flow
+            * Intent maps stream of user clicks, key presses etc. to stream of "show customers", "create new customer"
+            * Translates from user's mental model to application model
+            * Model maps stream of user intent to stream application state transformations
+            * View maps stream of application state to stream of visual representations
+            * User maps stream of screen content to incremental stream of mental model
+            * We have to implement the intent, model and view
+            * Those are just functions, could be consolidated into one or split up further
+          </aside>
+        </section>
+
+        <section data-background-transition="zoom">
+          <section data-background-iframe="https://cyclejs.github.io/tricycle/" data-background-interactive>
+            <aside class="notes" data-markdown>
+              * How does MVI translate to code in Cycle.js?
+              * Example code from Cycle.js website
+              * `main` function gets DOM events / http responses / w/e input from sources
+              * Returns sinks (DOM elements / http requests)
+              * Application code maps sources to sinks
+              * Drivers map sinks to sources
+              * Explain intent (`add$`), model (`count$`) and view (return value)
+              * Show live changes of numbers
+            </aside>
+          </section>
+          <section>
+            <img data-src="img/tricycle.png" alt="Cycle.js example code" style="width: 75%;">
+          </section>
+        </section>
+
+        <section>
+          <h3>Thank You!</h3>
+          <div>
+            <small>
+              Tim Seckinger
+            </small>
+            <br>
+            <small>
+              <img data-src="img/github-logo.png" alt="GitHub Logo" class="plain inline">
+              jeysal
+              <br>
+            </small>
+          </div>
+          <div>
+            <small>
+              <small>
+                Slides: <a href="https://github.com/jeysal/mvi-cycle.js-slides">https://github.com/jeysal/mvi-cycle.js-slides</a>
+                <br>
+                Term paper: <a href="https://github.com/jeysal/mvi-cycle.js-paper">https://github.com/jeysal/mvi-cycle.js-paper</a>
+                <br>
+                <br>
+                Cycle.js:
+                <br>
+                <a href="https://cycle.js.org/">https://cycle.js.org/</a>
+                <br>
+                <br>
+                "What if the user was a function?" by André Staltz:
+                <br>
+                <a href="https://www.youtube.com/watch?v=1zj7M1LnJV4">https://www.youtube.com/watch?v=1zj7M1LnJV4</a>
+              </small>
+            </small>
+          </div>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+  history: true,
+  dependencies: [
+    { src: 'plugin/markdown/marked.js' },
+    { src: 'plugin/markdown/markdown.js' },
+    { src: 'plugin/notes/notes.js', async: true },
+    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+  ],
+});
+    </script>
+  </body>
+</html>
