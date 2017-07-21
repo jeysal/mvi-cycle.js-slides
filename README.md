@@ -2,7 +2,8 @@
 
 > Slides for my talk on Model-View-Intent frontend development with Cycle.js
 
-See https://github.com/jeysal/mvi-cycle.js-paper for a term paper on the subject.
+[Take a look at the slides](https://jeysal.github.io/mvi-cycle.js-slides/)
+or see https://github.com/jeysal/mvi-cycle.js-paper for a term paper on the subject.
 
 ## Content License
 
